@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\UserController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +17,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
+    Route::get('/', 'UserController@index')->name('index');
+    Route::get('/create', 'UserController@create')->name('create');
+    Route::post('/store', 'UserController@store')->name('store');
+    Route::get('/edit/{user}', 'UserController@edit')->name('edit');
+    Route::post('/update/{user}', 'UserController@update')->name('update');
+    Route::post('/destroy/{user}', 'UserController@destroy')->name('destroy');
 });
