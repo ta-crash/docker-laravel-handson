@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Front;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Http\Request;
@@ -17,14 +18,16 @@ class UserController extends Controller
 
     public function index()
     {
-        return view('user.index', [
+        return view('front.user.index', [
             'users' => $this->userService->getUsers()
         ]);
     }
 
     public function create()
     {
-        return view('user.create');
+        return view('front.user.create', [
+            'configs' => $this->userService->getConfigs()
+        ]);
     }
 
     public function store(Request $request)
@@ -34,13 +37,14 @@ class UserController extends Controller
         session()->regenerateToken();
 
         return redirect()
-            ->route('user.index');
+            ->route('front.user.index');
     }
 
     public function edit(User $user)
     {
-        return view('user.edit', [
-            'user' => $user
+        return view('front.user.edit', [
+            'user' => $user,
+            'configs' => $this->userService->getConfigs()
         ]);
     }
 
@@ -51,7 +55,7 @@ class UserController extends Controller
         session()->regenerateToken();
 
         return redirect()
-            ->route('user.index');
+            ->route('front.user.index');
     }
 
     public function destroy(User $user)
@@ -61,6 +65,6 @@ class UserController extends Controller
         session()->regenerateToken();
 
         return redirect()
-            ->route('user.index');
+            ->route('front.user.index');
     }
 }

@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>User Edit</title>
+        <title>User Create</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -21,29 +21,112 @@
         </style>
     </head>
     <body class="antialiased">
-        <form action="{{ route('user.update', $user->id) }}" method="POST">
+        <form action="{{ route('front.user.store') }}" method="POST">
             @csrf
+
+            <div id="basic_information">
+                <h4>基本情報</h4>
+                <div>
+                    <label for="display_name">表示名</label>
+                    <input type="text" name="display_name">
+                </div>
+                <div>
+                    <label for="email">メールアドレス</label>
+                    <input type="text" name="email">
+                </div>
+                <div>
+                    <label for="password">パスワード</label>
+                    <input type="password" name="password">
+                </div>
+                <div>
+                    <label for="password_confirm">パスワード(確認)</label>
+                    <input type="password" name="password_confirm">
+                </div>
+            </div>
+
+            <div id="personal_information">
+                <h4>個人情報</h4>
+                <div>
+                    <label for="name">氏名</label>
+                    <input type="text" name="name">
+                </div>
+                <div>
+                    <label for="name_kana">氏名(カナ)</label>
+                    <input type="text" name="name_kana">
+                </div>
+                <div>
+                    <label for="gender">性別</label>
+                    @foreach ($configs['genders'] as $gender => $description)
+                        <input type="radio" name="gender" value="{{ $gender }}">
+                        <label for="{{ $gender }}">{{ $description }}</label>
+                    @endforeach
+                </div>
+                <div>
+                    <label for="birthday">生年月日</label>
+                    <span id="birthday">
+                        <input type="text" name="birth_year">年
+                        <input type="text" name="birth_month">月
+                        <input type="text" name="birth_date">日
+                    </span>
+                </div>
+                <div>
+                    <label for="height">身長</label>
+                    <input type="text" name="height">cm
+                </div>
+                <div>
+                    <label for="weight">体重</label>
+                    <input type="text" name="weight">kg
+                </div>
+                <div>
+                    <label for="blood_type">性別</label>
+                    @foreach ($configs['bloodTypes'] as $bloodType => $description)
+                        <input type="radio" name="blood_type" value="{{ $bloodType }}">
+                        <label for="{{ $bloodType }}">{{ $description }}</label>
+                    @endforeach
+                </div>
+                <div>
+                    <label for="tel">電話番号(ハイフンなし)</label>
+                    <input type="text" name="tel">
+                </div>
+                <div>
+                    <label for="zip_code">郵便番号(ハイフンなし)</label>
+                    <input type="text" name="zip_code">
+                </div>
+                <div>
+                    <label for="prefecture">都道府県</label>
+                    <select name="prefecture">
+                        @foreach ($configs['prefectures'] as $prefecture => $description)
+                            <option value="{{ $prefecture }}">{{ $description }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div>
+                    <label for="address">住所</label>
+                    <input type="text" name="address">
+                </div>
+                <div>
+                    <label for="address_building">住所(建物名など)</label>
+                    <input type="text" name="address_building">
+                </div>
+            </div>
+
+            <div id="plan">
+                <h4>プラン</h4>
+                <div>
+                    <label for="plan_id">プラン</label>
+                    <select name="plan_id">
+                        @foreach ($configs['plans'] as $plan)
+                            <option value="{{ $plan->id }}">{{ $plan->name . '(月' . $plan->offer_count . 'いいね、月額' . $plan->price . '円)' }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
             <div>
-                <label for="name">名前</label>
-                <input type="text" name="name" value="{{ $user->name }}">
+                <input type="submit" value="登録する">
             </div>
             <div>
-                <label for="email">メールアドレス</label>
-                <input type="text" name="email" value="{{ $user->email }}">
-            </div>
-            <div>
-                <label for="password">パスワード</label>
-                <input type="password" name="password">
-            </div>
-            <div>
-                <label for="password_confirm">パスワード(確認)</label>
-                <input type="password" name="password_confirm">
-            </div>
-            <div>
-                <input type="submit" value="編集する">
-            </div>
-            <div>
-                <a href="{{ route('user.index') }}">
+                <a href="{{ route('front.user.index') }}">
                     <button type="button">戻る</button>
                 </a>
             </div>

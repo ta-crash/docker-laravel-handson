@@ -2,44 +2,63 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enums\BloodType;
+use App\Enums\Gender;
+use App\Enums\Prefecture;
+use BenSampo\Enum\Traits\CastsEnums;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
+    use CastsEnums, Notifiable, SoftDeletes;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var string[]
-     */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'display_name', 'email', 'password', 
+        'name', 'name_kana', 'gender', 'birthday', 'height', 'weight', 'blood_type',
+        'tel', 'zip_code', 'prefecture', 'address', 'address_building',
+        'plan_id', 'offer_left',
+        'email_verify_token', 'email_verified_at'
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array
-     */
+    protected $dates = [
+        'email_verified_at', 'created_at', 'updated_at', 'deleted_at'
+    ];
+
     protected $hidden = [
-        'password',
-        'remember_token',
+        'password', 'remember_token'
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'gender' => 'string',
+        'blood_type' => 'string',
+        'prefecture' => 'string'
     ];
+
+    protected $enumCasts = [
+        'gender' => Gender::class,
+        'blood_type' => BloodType::class,
+        'prefecture' => Prefecture::class
+    ];
+
+    public function plan()
+    {
+        return $this->belongsTo(Plan::class);
+    }
+
+    public function getBirthYearAttribute()
+    {
+        return explode('-', $this->birthday)[0];
+    }
+
+    public function getBirthMonthAttribute()
+    {
+        return explode('-', $this->birthday)[1];
+    }
+
+    public function getBirthDateAttribute()
+    {
+        return explode('-', $this->birthday)[2];
+    }
 }

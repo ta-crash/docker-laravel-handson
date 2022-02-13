@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnUsers20211207 extends Migration
+class CreatePlansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class AddColumnUsers20211207 extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->softDeletes();
+        Schema::create('plans', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name', 20);
+            $table->unsignedInteger('offer_count');
+            $table->unsignedInteger('price');
         });
     }
 
@@ -25,8 +28,6 @@ class AddColumnUsers20211207 extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('deleted_at');
-        });
+        Schema::dropIfExists('plans');
     }
 }

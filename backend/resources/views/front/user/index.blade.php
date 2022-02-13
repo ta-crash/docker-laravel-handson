@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>User Create</title>
+        <title>User Index</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -21,32 +21,35 @@
         </style>
     </head>
     <body class="antialiased">
-        <form action="{{ route('user.store') }}" method="POST">
-            @csrf
-            <div>
-                <label for="name">名前</label>
-                <input type="text" name="name">
-            </div>
-            <div>
-                <label for="email">メールアドレス</label>
-                <input type="text" name="email">
-            </div>
-            <div>
-                <label for="password">パスワード</label>
-                <input type="password" name="password">
-            </div>
-            <div>
-                <label for="password_confirm">パスワード(確認)</label>
-                <input type="password" name="password_confirm">
-            </div>
-            <div>
-                <input type="submit" value="登録する">
-            </div>
-            <div>
-                <a href="{{ route('user.index') }}">
-                    <button type="button">戻る</button>
-                </a>
-            </div>
+        <form action="{{ route('front.user.create') }}" method="GET">
+            <input type="submit" value="新規登録">
         </form>
+        <table id="users">
+            <tr>
+                <th>ユーザーID</th>
+                <th>名前</th>
+                <th>Eメール</th>
+                <th></th>
+                <th></th>
+            </tr>
+            @foreach ($users as $user)
+                <tr>
+                    <td>{{ $user->id }}</td>
+                    <td>{{ $user->name }}</td>
+                    <td>{{ $user->email }}</td>
+                    <td>
+                        <form action="{{ route('front.user.edit', $user->id) }}" method="GET">
+                            <input type="submit" value="編集">
+                        </form>
+                    </td>
+                    <td>
+                        <form action="{{ route('front.user.destroy', $user->id) }}" method="POST">
+                            @csrf
+                            <input type="submit" value="削除">
+                        </form>
+                    </td>
+                </tr>
+            @endforeach
+        </table>
     </body>
 </html>
