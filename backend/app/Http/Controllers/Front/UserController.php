@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Front\UserCreateRequest;
+use App\Http\Requests\Front\UserUpdateRequest;
 use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Http\Request;
@@ -30,7 +32,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(UserCreateRequest $request)
     {
         $this->userService->store($request->all());
 
@@ -48,7 +50,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function update(User $user, Request $request)
+    public function update(User $user, UserUpdateRequest $request)
     {
         $this->userService->update($user, $request->all());
 

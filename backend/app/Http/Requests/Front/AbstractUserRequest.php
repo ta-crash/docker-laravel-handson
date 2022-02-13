@@ -15,7 +15,9 @@ abstract class AbstractUserRequest extends FormRequest
             'name' => '名前',
             'name_kana' => '名前(カナ)',
             'gender' => '性別',
-            'birthday' => '生年月日',
+            'birth_year' => '生年月日(年)',
+            'birth_month' => '生年月日(月)',
+            'birth_date' => '生年月日(日)',
             'height' => '身長',
             'weight' => '体重',
             'blood_type' => '血液型',
@@ -24,7 +26,7 @@ abstract class AbstractUserRequest extends FormRequest
             'prefecture' => '都道府県',
             'address' => '住所',
             'address_building' => '住所(建物名)',
-            'plan' => 'プラン',
+            'plan_id' => 'プラン',
         ];
     }
 }

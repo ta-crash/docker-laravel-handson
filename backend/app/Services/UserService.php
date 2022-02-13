@@ -42,11 +42,11 @@ class UserService
     {
         \DB::transaction(function () use ($data) {
             $birthday = Carbon::parse($data['birth_year'] . '-' . $data['birth_month'] . '-' . $data['birth_date'])->format('Y-m-d');
-            $plan = $this->planRepo->find($data['plan_id']);
+            $offerCount = $this->planRepo->find($data['plan_id'])->offer_count;
 
             $data = array_merge($data, [
                 'birthday' => $birthday,
-                'offer_left' => $plan->offer_count
+                'offer_left' => $offerCount
             ]);
 
             $this->userRepo->create($data);
@@ -56,14 +56,9 @@ class UserService
     public function update(User $user, array $data)
     {
         \DB::transaction(function () use ($user, $data) {
+            $data['password'] = $data['password'] ?? $user->password;
             $birthday = Carbon::parse($data['birth_year'] . '-' . $data['birth_month'] . '-' . $data['birth_date'])->format('Y-m-d');
-
-            if ($user->plan_id === $data['plan_id']) {
-                $offerCount = $user->offer_left;
-            } else {
-                $plan = $this->planRepo->find($data['plan_id']);
-                $offerCount = $plan->offer_count;
-            }
+            $offerCount = $user->plan_id === $data['plan_id'] ? $user->offer_left : $this->planRepo->find($data['plan_id'])->offer_count;
 
             $data = array_merge($data, [
                 'birthday' => $birthday,
