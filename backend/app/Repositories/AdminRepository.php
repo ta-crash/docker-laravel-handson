@@ -2,22 +2,22 @@
 
 namespace App\Repositories;
 
-use App\Models\User;
+use App\Models\Admin;
 use Illuminate\Support\Collection;
 
-class UserRepository extends AbstractRepository
+class AdminRepository extends AbstractRepository
 {
     public function getModel()
     {
-        return User::class;
+        return Admin::class;
     }
 
-    public function getUsers(): Collection
+    public function getAdmins(): Collection
     {
         return $this->model->all();
     }
 
-    public function getUserByEmail(string $email): ?User
+    public function getAdminByEmail(string $email): ?Admin
     {
         return $this->model
             ->where('email', $email)
@@ -29,13 +29,13 @@ class UserRepository extends AbstractRepository
         return $this->model->create($data);
     }
 
-    public function update(User $user, array $data)
+    public function update(Admin $admin, array $data)
     {
-        return $user->fill($data)->save();
+        return $admin->fill($data)->save();
     }
 
-    public function destroy(User $user)
+    public function destroy(Admin $admin)
     {
-        return $user->delete();
+        return $admin->delete();
     }
 }

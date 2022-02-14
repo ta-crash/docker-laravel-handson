@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Front;
 
 use App\Enums\BloodType;
 use App\Enums\Gender;
@@ -14,6 +14,8 @@ use Illuminate\Support\Collection;
 class UserService
 {
     private $userRepo;
+
+    private $planRepo;
 
     public function __construct(
         UserRepository $userRepo,

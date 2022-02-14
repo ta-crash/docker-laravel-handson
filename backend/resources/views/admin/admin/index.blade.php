@@ -1,28 +1,28 @@
-@extends('layouts.front')
+@extends('layouts.admin')
 
-@section('title', 'User Index')
+@section('title', 'Admin Index')
 
 @section('contents')
-    <table id="users">
+    <table id="admins">
         <tr>
-            <th>ユーザーID</th>
+            <th>管理者ID</th>
             <th>名前</th>
             <th>Eメール</th>
             <th></th>
             <th></th>
         </tr>
-        @foreach ($users as $user)
+        @foreach ($admins as $admin)
             <tr>
-                <td>{{ $user->id }}</td>
-                <td>{{ $user->name }}</td>
-                <td>{{ $user->email }}</td>
+                <td>{{ $admin->id }}</td>
+                <td>{{ $admin->name }}</td>
+                <td>{{ $admin->email }}</td>
                 <td>
-                    <form action="{{ route('front.user.edit', $user->id) }}" method="GET">
+                    <form action="{{ route('admin.admin.edit', $admin->id) }}" method="GET">
                         <input type="submit" value="編集">
                     </form>
                 </td>
                 <td>
-                    <form action="{{ route('front.user.destroy', $user->id) }}" method="POST">
+                    <form action="{{ route('admin.admin.destroy', $admin->id) }}" method="POST">
                         @csrf
                         <input type="submit" value="削除">
                     </form>

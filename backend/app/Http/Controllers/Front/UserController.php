@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Front\UserCreateRequest;
 use App\Http\Requests\Front\UserUpdateRequest;
 use App\Models\User;
-use App\Services\UserService;
+use App\Services\Front\UserService;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
