@@ -1,4 +1,4 @@
-<header id="header">
+<header id="header" style="background: #F00;">
     @if (session('admin'))
         こんにちは、{{ session('admin')->name }}さん <a href="{{ route('admin.login.logout') }}">ログアウト</a>
     @else

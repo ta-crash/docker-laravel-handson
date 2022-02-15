@@ -6,6 +6,7 @@ use App\Enums\BloodType;
 use App\Enums\Gender;
 use App\Enums\Prefecture;
 use BenSampo\Enum\Traits\CastsEnums;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -60,5 +61,10 @@ class User extends Authenticatable
     public function getBirthDateAttribute()
     {
         return explode('-', $this->birthday)[2];
+    }
+
+    public function getAgeAttribute()
+    {
+        return Carbon::parse($this->birthday)->age;
     }
 }

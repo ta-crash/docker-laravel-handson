@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Front\UserCreateRequest;
+use App\Http\Requests\Front\UserSearchRequest;
 use App\Http\Requests\Front\UserUpdateRequest;
 use App\Models\User;
 use App\Services\Front\UserService;
@@ -18,10 +19,16 @@ class UserController extends Controller
         $this->userService = $userService;
     }
 
-    public function index()
+    public function index(UserSearchRequest $request)
     {
+        $allRequest = $request->all();
+        $users = $this->userService->getUsersByConditions($allRequest);
+
         return view('front.user.index', [
-            'users' => $this->userService->getUsers()
+            'configs' => $this->userService->getConfigs(),
+            'conditions' => $allRequest,
+            'usersCount' => $users->count(),
+            'users' => $users
         ]);
     }
 

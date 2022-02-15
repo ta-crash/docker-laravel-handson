@@ -27,6 +27,9 @@ abstract class AbstractUserRequest extends FormRequest
             'address' => '住所',
             'address_building' => '住所(建物名)',
             'plan_id' => 'プラン',
+            'age_from' => '年齢(from)',
+            'age_to' => '年齢(to)',
+            'prefectures' => '都道府県',
         ];
     }
 }

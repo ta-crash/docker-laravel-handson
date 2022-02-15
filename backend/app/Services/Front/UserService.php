@@ -25,9 +25,9 @@ class UserService
         $this->planRepo = $planRepo;
     }
 
-    public function getUsers(): Collection
+    public function getUsersByConditions(array $conditions): Collection
     {
-        return $this->userRepo->getUsers();
+        return $this->userRepo->getUsersByConditions($conditions);
     }
 
     public function getConfigs(): array
