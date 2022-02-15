@@ -28,8 +28,8 @@
             @enderror
         </div>
         <div>
-            <label for="password_confirm">パスワード(確認)</label>
-            <input type="password" name="password_confirm">
+            <label for="password_confirmation">パスワード(確認)</label>
+            <input type="password" name="password_confirmation">
         </div>
 
         <div>

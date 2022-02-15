@@ -30,8 +30,8 @@
                 @enderror
             </div>
             <div>
-                <label for="password_confirm">パスワード(確認)</label>
-                <input type="password" name="password_confirm">
+                <label for="password_confirmation">パスワード(確認)</label>
+                <input type="password" name="password_confirmation">
             </div>
         </div>
 
@@ -93,7 +93,7 @@
                 @enderror
             </div>
             <div>
-                <label for="blood_type">性別</label>
+                <label for="blood_type">血液型</label>
                 @foreach ($configs['bloodTypes'] as $bloodType => $description)
                     <input type="radio" name="blood_type" id="{{ $bloodType }}" value="{{ $bloodType }}" {{ old('blood_type', $user->blood_type->value) === $bloodType ? 'checked' : '' }}>
                     <label for="{{ $bloodType }}">{{ $description }}</label>

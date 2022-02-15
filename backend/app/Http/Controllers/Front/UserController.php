@@ -22,6 +22,14 @@ class UserController extends Controller
     public function index(UserSearchRequest $request)
     {
         $allRequest = $request->all();
+
+        $session = $request->session();
+        if ($session->has('user')) {
+            $allRequest = array_merge($allRequest, [
+                'gender' => $session->get('user')->gender
+            ]);
+        }
+
         $users = $this->userService->getUsersByConditions($allRequest);
 
         return view('front.user.index', [

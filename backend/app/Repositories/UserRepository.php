@@ -18,6 +18,10 @@ class UserRepository extends AbstractRepository
         $today = new Carbon();
         $query = $this->model->query();
 
+        if (isset($conditions['gender'])) {
+            $query->where('gender', '!=', $conditions['gender']);
+        }
+
         if (isset($conditions['age_from'])) {
             $ageFrom = $today->copy()->subYear($conditions['age_from'])->format('Y-m-d');
             $query->where('birthday', '<=', $ageFrom);
@@ -32,6 +36,14 @@ class UserRepository extends AbstractRepository
             $query->where(function ($query) use ($conditions) {
                 foreach ($conditions['prefectures'] as $prefecture) {
                     $query->orWhere('prefecture', $prefecture);
+                }
+            });
+        }
+
+        if (isset($conditions['blood_types'])) {
+            $query->where(function ($query) use ($conditions) {
+                foreach ($conditions['blood_types'] as $bloodType) {
+                    $query->orWhere('blood_type', $bloodType);
                 }
             });
         }

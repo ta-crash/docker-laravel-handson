@@ -19,6 +19,7 @@ class UserSearchRequest extends AbstractUserRequest
             'age_from' => 'nullable|numeric|min:20',
             'age_to' => 'nullable|numeric|min:20|gte:age_from',
             'prefectures.*' => ['nullable', 'string', new EnumValue(Prefecture::class, false)],
+            'blood_types.*' => ['nullable', 'string', new EnumValue(BloodType::class, false)],
         ];
     }
 
